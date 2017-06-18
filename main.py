@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect
+import cgi
 #flask imports a "request" object, which allows us to access the data that the user submits to our server
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -25,7 +26,7 @@ def index(): #this function will recieve requests at that root path (request is 
 def hello(): #takes data that the user enters into the form, which will be submitted to our server (to the /hello route on our server). This allows us to get the data, and then return a personalized greeting with the input user name
     first_name = request.form['first_name']
     #first_name = request.args.get('first_name') #python parses the data that i'm requesting by variable name, and sets it to the var i've defined here
-    return '<h1>Hello, ' + first_name + '</h1>'
+    return '<h1>Hello, ' + cgi.escape(first_name) + '</h1>'
 
 time_form = """
     <style>
